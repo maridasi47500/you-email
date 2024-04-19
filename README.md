@@ -1,11 +1,6 @@
-- bienvenue à bulletproof pic
+- bienvenue à you email 
 
-- ajouter des musicians d'un groupe de musique
-- modifier avec d'autres musiciens "bangtan" ou "bulletproof" pour toi
-- télécharger rapidement des articles par l'url 
-- chercher des articles
-- télécharger des photo de ton membre préféré
-
+- email fake inbox
 - lancer:
 ```
 $ sh mysite.sh
@@ -13,5 +8,3 @@ $ sh mysite.sh
 - visit http://localhost:8080
 
 
-# bulletproof-pic
-# you-email
