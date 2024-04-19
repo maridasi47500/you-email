@@ -1,0 +1,60 @@
+#overlay {
+	position: fixed;
+	display: none;
+	width: 60%;
+	height: 93%;
+	top: 0;
+	left: 40%;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 2;
+	cursor: pointer;
+	border: 1px solid #c1c1c1;
+}
+#text {
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 20px;
+	color: white;
+	/* transform: translate(-50%,-50%); */
+	-ms-transform: translate(-50%,-50%);
+	background: black;
+	width: 100%;
+	height: 100%;
+}
+input#to_email {
+	    width: 95%;
+	        /* float: left; */
+    }
+input#object_email {
+	    width: 100%;
+	        /* float: left; */
+    }
+#content_email {
+	    width: 100%;
+	    height: 100%;
+    }
+    form.sendemail {
+	        height: 76%;
+		    float: left;
+		        width: 100%;
+		}
+		.field.contentfield {
+			    height: 95%;
+		    }
+		    input#submit_email1 {
+			        float: right;
+			}
+			.actions{
+				padding-top:5px;
+			}
+			
+			button#btn1 {
+				    position: fixed;
+				        bottom: 0;
+					    right: 0;
+					        height: 7%;
+						   display:none; 
+					}

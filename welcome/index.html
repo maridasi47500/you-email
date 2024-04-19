@@ -1,0 +1,29 @@
+
+<%=Fichier("./welcome","notsignedin.html").lire() if session["user_id"] == "" else Fichier("./welcome","inbox.html").lire() %>
+
+<div id="overlay">
+<div id="text">
+	<p>
+	Nouveau message
+	</p>
+	<form class="sendemail" action="/sendemail" method="post">
+			<input type="hidden" id="from_email" name="from"/>
+		<div class="field">
+			<label for="from_email">A</label>
+			<input type="email" id="to_email" name="to"/>
+		</div>
+		<div class="field">
+			<label for="object_email" hidden>Objet</label>
+			<input type="email" id="object_email" placeholder="Objet" name="object"/>
+		</div>
+		<div class="field contentfield">
+			<label for="content_email" hidden>Objet</label>
+			<textarea id="content_email" name="content"></textarea>
+		</div>
+		<div class="actions envoyermessage">
+			<input type="submit" id="submit_email" name="envoyer" class="left" value="&#x1F585;"/>
+			<input type="submit" id="submit_email1" class="right" name="supprimer" value="&#128465;"/>
+		</div>
+	</form>
+</div>
+</div>
