@@ -7,10 +7,14 @@
 	Nouveau message
 	</p>
 	<form class="sendemail" action="/sendemail" method="post">
-			<input type="hidden" id="from_email" name="from"/>
+			<input value="<%=db.User.findbyid(session["user_id"])["email"]%>" type="hidden" id="from_email" name="from"/>
+
 		<div class="field">
 			<label for="from_email">A</label>
-			<input type="email" id="to_email" name="to"/>
+			<select type="email" class="someselect" id="to_email" name="to">
+<option value=""></option>
+<%=render_collection(collection=db.Address.getalladdress(), partial='welcome/_optionaddress.html', as_='address')%>
+</select>
 		</div>
 		<div class="field">
 			<label for="object_email" hidden>Objet</label>

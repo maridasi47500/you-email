@@ -1,20 +1,9 @@
 $(function(){
 
-if ($('form#urlform').length > 0){
-$('form#urlform').on('submit', function () {
+if ($('form').length > 0){
+$('form').on('submit', function () {
   if (window.filesize > 1024*5) {
     alert('max upload size is 5k');
-return false;
-  }
-  if (Number(mycounter.innerHTML) === 0) {
-	  mycounter.innerHTML=Number(mycounter.innerHTML)+1;
-	  window.open('https://www.google.com', '_blank');
-	  //alert('youre bulletproof?');
-return false;
-  } if (Number(mycounter.innerHTML) === 1) {
-	  mycounter.innerHTML=Number(mycounter.innerHTML)+1;
-	  window.open('https://www.google.com', '_blank');
-	  //alert('u didnt answer, ur bulletproof?');
 return false;
   }
   $.ajax({

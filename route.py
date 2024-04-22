@@ -154,6 +154,22 @@ class Route():
         else:
           self.set_notice("erreur quand vous avez envoyé le formulaire")
         return self.render_some_json("welcome/mypic.json")
+    def createaddress(self,search):
+        myparam=self.get_post_data()(params=("user_id","name","email",))
+        hi=self.db.Address.create(myparam)
+        if hi:
+          self.set_notice("votre address a été ajouté")
+        else:
+          self.set_notice("erreur quand vous avez envoyé le formulaire")
+        return self.render_some_json("welcome/address.json")
+    def sendemail(self,search):
+        myparam=self.get_post_data()(params=("from","to","object","content"))
+        hi=self.db.Message.create(myparam)
+        if hi:
+          self.set_notice("votre email a été envoyé")
+        else:
+          self.set_notice("erreur quand vous avez envoyé le formulaire")
+        return self.render_some_json("welcome/mypic.json")
     def new1(self,search):
         myparam=self.get_post_data()(params=("script","missiontarget_id","missiontype_id","missionprogram_id",))
         #hi=self.dbMissionscript.create(myparam)
@@ -303,6 +319,9 @@ class Route():
         return self.render_figure.render_figure("ajouter/post.html")
     def addmember(self,search): 
         return self.render_figure.render_figure("ajouter/member.html")
+    def carnetdadresses(self,search):
+        self.render_figure.set_param("address",self.db.Address.getall())
+        return self.render_figure.render_figure("ajouter/carnetdadresses.html")
     def addband(self,search):
 
         return self.render_figure.render_figure("ajouter/band.html")
@@ -427,6 +446,9 @@ class Route():
             '^/createband$': self.createband,
             '^/createpost$': self.createpost,
             '^/createmember$': self.createmember,
+            '^/createaddress$': self.createaddress,
+            '^/sendemail$': self.sendemail,
+            '^/carnetdadresses$': self.carnetdadresses,
             '^/myurl$': self.myurl,
             '^/myband$': self.myband,
             '^/mydiv$': self.mydiv,
