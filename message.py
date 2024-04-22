@@ -11,6 +11,8 @@ class Message(Model):
         self.cur.execute("""create table if not exists message(
         id integer primary key autoincrement,
         from text,
+            sent integer,
+            envoyeremail integer,
             to text,
             object text,
             content text
@@ -40,8 +42,6 @@ class Message(Model):
         for x in params:
             if 'confirmation' in x:
                 continue
-            if 'envoyer' in x:
-                continue
             if '[' not in x and x not in ['routeparams']:
                 #print("my params",x,params[x])
                 try:
@@ -52,12 +52,13 @@ class Message(Model):
         print(myhash,myhash.keys())
         myid=None
         try:
-          self.cur.execute("insert into message (from,to,object,content) values (:from,:to,:object,:content)",myhash)
+          self.cur.execute("insert into message (sent,from,to,object,content) values (:sent,:from,:to,:object,:content)",myhash)
           self.con.commit()
           myid=str(self.cur.lastrowid)
         except Exception as e:
           print("my error"+str(e))
         azerty={}
+        azerty["sent"]=params["sent"]
         azerty["message_id"]=myid
         azerty["notice"]="votre message a été ajouté"
         return azerty

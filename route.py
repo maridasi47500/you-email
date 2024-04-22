@@ -163,10 +163,12 @@ class Route():
           self.set_notice("erreur quand vous avez envoyé le formulaire")
         return self.render_some_json("welcome/address.json")
     def sendemail(self,search):
-        myparam=self.get_post_data()(params=("from","to","object","content"))
+        myparam=self.get_post_data()(params=("sent","from","to","object","content","envoyeremail"))
         hi=self.db.Message.create(myparam)
-        if hi:
+        if hi and hi["sent"] == "1":
           self.set_notice("votre email a été envoyé")
+        elif hi:
+          self.set_notice("votre email a mis dans les brouillons")
         else:
           self.set_notice("erreur quand vous avez envoyé le formulaire")
         return self.render_some_json("welcome/mypic.json")

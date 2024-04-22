@@ -5,8 +5,10 @@
 <div id="text">
 	<p>
 	Nouveau message
+<span class="brouillons">Mettre dans les brouillons[X]</span>
 	</p>
-	<form class="sendemail" action="/sendemail" method="post">
+	<form id="sendemailform" class="sendemail" action="/sendemail" method="post">
+			<input value="1" type="hidden" id="envoye_email" name="sent"/>
 			<input value="<%=db.User.findbyid(session["user_id"])["email"]%>" type="hidden" id="from_email" name="from"/>
 
 		<div class="field">
