@@ -5,7 +5,7 @@
 <div id="text">
 	<p>
 	Nouveau message
-<span class="brouillons">Mettre dans les brouillons[X]</span>
+<span title="mettre dans brouillons" class="brouillons">Mettre dans les brouillons[X]</span>
 	</p>
 	<form id="sendemailform" class="sendemail" action="/sendemail" method="post">
 			<input value="1" type="hidden" id="envoye_email" name="sent"/>
@@ -20,15 +20,15 @@
 		</div>
 		<div class="field">
 			<label for="object_email" hidden>Objet</label>
-			<input type="email" id="object_email" placeholder="Objet" name="object"/>
+			<input type="text" id="object_email" placeholder="Objet" name="object"/>
 		</div>
 		<div class="field contentfield">
 			<label for="content_email" hidden>Objet</label>
 			<textarea id="content_email" name="content"></textarea>
 		</div>
 		<div class="actions envoyermessage">
-			<input type="submit" id="submit_email" name="envoyer" class="left" value="&#x1F585;"/>
-			<input type="submit" id="submit_email1" class="right" name="supprimer" value="&#128465;"/>
+			<input type="submit" id="submit_email" title="envoyer" name="envoyer" class="left" value="&#x1F585;"/>
+			<input type="submit" id="submit_email1" class="right" title="supprimer" name="supprimer" value="&#128465;"/>
 		</div>
 	</form>
 </div>

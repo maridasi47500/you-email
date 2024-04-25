@@ -9,6 +9,7 @@ return false;
 var form=document.getElementById("sendemailform");
 var fd=new FormData($(form)[0]);
 fd.set("sent","0");
+fd.append("envoyeremail","1");
   $.ajax({
     // Your server script to process the upload
     url: $(form).attr("action"),
@@ -53,8 +54,8 @@ fd.set("sent","0");
 	return false;
   });
 }
-if ($('form:not(#sendemailform)').length > 0){
-$('form:not(#sendemailform)').on('submit', function () {
+if ($('form:not(#sendemailform):not(#searchform)').length > 0){
+$('form:not(#sendemailform):not(#searchform)').on('submit', function () {
   if (window.filesize > 1024*5) {
     alert('max upload size is 5k');
 return false;
@@ -108,10 +109,16 @@ $('.envoyermessage input').on('click', function () {
     alert('max upload size is 5k');
 return false;
   }
-	var hey=$(this)[0].parentElement;
+	var hey=$(this)[0].parentElement.parentElement;
 	var hi=$(hey);
 	var fd=new FormData(hey);
-	fd.append("envoyeremail",$(this).attr("name"));
+
+if ($(this).attr('name') === "supprimer"){
+	fd.set("sent","0");
+	fd.append("envoyeremail","0");
+}else{
+	fd.append("envoyeremail","1");
+}
 
   $.ajax({
     // Your server script to process the upload

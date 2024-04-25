@@ -1,0 +1,8 @@
+<%message=params["message"]%>
+<h3>object: <%=message["object"]%></h3>
+<p>from : <b><%=message["from"]%></b></p>
+<p>to : <b><%=message["myaddress"]%></b></p>
+<p>object : <b><%=message["object"]%></b></p>
+<p><%=message["content"].replace("\r\n","<br>")%></p>
+<%=Fichier("./welcome","brouillon.html").lire() %>
+<%=Fichier("./welcome","mesbrouillons.html").lire() if (str(message["envoyeremail"]) == "1" and str(message["sent"]) == "0") else ""%>

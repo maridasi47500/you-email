@@ -1,1 +1,2 @@
-<%=render_collection(collection=db.Post.search(params["search"]), partial='welcome/_search.html', as_='s')%>
+<%res=db.Message.search(params["search"],session["user_id"])%>
+<%=render_collection(collection=res, partial='welcome/_search.html', as_='s') if len(res) > 0 else "aucun résultat trouvé pour "+params["search"]%>

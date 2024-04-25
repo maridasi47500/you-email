@@ -86,10 +86,10 @@ class Route():
         print(myparam,"P A R A M E T R E")
         s=myparam["search"]
         try:
-          self.set_notice("vous avez cherché "+s.encode())
+          self.set_notice("vous avez cherché "+s)
 
-        except:
-          self.set_notice("erreur quand vous avez envoyé le formulaire")
+        except Exception as e:
+          self.set_notice(e, "erreur quand vous avez envoyé le formulaire")
         self.render_figure.set_param("search",s)
         return self.render_figure.render_figure("welcome/voirsearch.html")
     def createmusician(self,search):
@@ -162,11 +162,25 @@ class Route():
         else:
           self.set_notice("erreur quand vous avez envoyé le formulaire")
         return self.render_some_json("welcome/address.json")
+    def editeremail(self,search):
+        myparam=self.get_post_data()(params=("id","sent","from","to","object","content","envoyeremail"))
+        hi=self.db.Message.update(myparam)
+        if hi and hi["sent"] == "1":
+          self.set_notice("votre email a été envoyé")
+        elif hi and hi["sent"] == "0" and hi["envoyeremail"] == "supprimer":
+          self.set_notice("votre email a été supprimé")
+        elif hi:
+          self.set_notice("votre email a été mis dans les brouillons")
+        else:
+          self.set_notice("erreur quand vous avez envoyé le formulaire")
+        return self.render_some_json("welcome/mypic.json")
     def sendemail(self,search):
         myparam=self.get_post_data()(params=("sent","from","to","object","content","envoyeremail"))
         hi=self.db.Message.create(myparam)
         if hi and hi["sent"] == "1":
           self.set_notice("votre email a été envoyé")
+        elif hi and str(hi["sent"]) == "0" and str(hi["envoyeremail"]) == "0":
+          self.set_notice("votre email a été supprimé")
         elif hi:
           self.set_notice("votre email a mis dans les brouillons")
         else:
@@ -263,12 +277,12 @@ class Route():
         print("route params")
         self.render_figure.set_param("user",User().getbyid(myparam["id"]))
         return self.render_figure.render_figure("user/edituser.html")
-    def editerpost(self,params={}):
+    def voirmessage(self,params={}):
         getparams=("id",)
         print("get param, action see my new",getparams)
         myparam=self.get_this_route_param(getparams,params)
-        self.render_figure.set_param("post",self.db.Post.getbyid(myparam["id"]))
-        return self.render_figure.render_figure("ajouter/editerpost.html")
+        self.render_figure.set_param("message",self.db.Message.getbyid(myparam["id"]))
+        return self.render_figure.render_figure("ajouter/voirmessage.html")
     def voirpost(self,params={}):
         getparams=("id",)
         print("get param, action see my new",getparams)
@@ -324,6 +338,22 @@ class Route():
     def carnetdadresses(self,search):
         self.render_figure.set_param("address",self.db.Address.getall())
         return self.render_figure.render_figure("ajouter/carnetdadresses.html")
+    def reception(self,search):
+        self.render_figure.set_param("message",self.db.Message.getallrecu(self.Program.get_session_param("user_id")))
+        self.render_figure.set_param("mytitle", "Boite de réception")
+        return self.render_figure.render_figure("ajouter/messages.html")
+    def envoye(self,search):
+        self.render_figure.set_param("message",self.db.Message.getallenvoye(self.Program.get_session_param("user_id")))
+        self.render_figure.set_param("mytitle", "Envoyés")
+        return self.render_figure.render_figure("ajouter/messages.html")
+    def brouillon(self,search):
+        self.render_figure.set_param("message",self.db.Message.getallbrouillon(self.Program.get_session_param("user_id")))
+        self.render_figure.set_param("mytitle", "Brouillons")
+        return self.render_figure.render_figure("ajouter/messages.html")
+    def supprime(self,search):
+        self.render_figure.set_param("message",self.db.Message.getallsupprime(self.Program.get_session_param("user_id")))
+        self.render_figure.set_param("mytitle", "Messages supprimés")
+        return self.render_figure.render_figure("ajouter/messages.html")
     def addband(self,search):
 
         return self.render_figure.render_figure("ajouter/band.html")
@@ -450,7 +480,12 @@ class Route():
             '^/createmember$': self.createmember,
             '^/createaddress$': self.createaddress,
             '^/sendemail$': self.sendemail,
+            '^/editeremail$': self.editeremail,
             '^/carnetdadresses$': self.carnetdadresses,
+            '^/reception$': self.reception,
+            '^/envoye$': self.envoye,
+            '^/brouillon$': self.brouillon,
+            '^/supprime$': self.supprime,
             '^/myurl$': self.myurl,
             '^/myband$': self.myband,
             '^/mydiv$': self.mydiv,
@@ -460,7 +495,7 @@ class Route():
             '^/ajouterband$': self.addband,
             '^/ajouterpost$': self.addpost,
             '^/voirpost/([0-9]+)$': self.voirpost,
-            '^/editerpost/([0-9]+)$': self.editerpost,
+            '^/voirmessage/([0-9]+)$': self.voirmessage,
             '^/updatepost$': self.updatepost,
             '^/ajoutermember$': self.addmember,
             '^/aboutme$': self.aboutme,

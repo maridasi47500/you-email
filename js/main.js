@@ -79,8 +79,14 @@ members.value="";
 
 });
 $(document).ready(function () {
-      $('.someselect').selectize({
+	var myselect=$(".someselect");
+	
+      myselect.selectize({
           sortField: 'text'
-      });
+      })
+	if(myselect.data("text")){
+		myselect[0].selectize.addOption({text: myselect.data("text"), value: myselect.data("selectize1")})
+		myselect[0].selectize.setValue(myselect.data("selectize1"));
+	}
   });
 

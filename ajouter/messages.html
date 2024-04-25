@@ -1,0 +1,4 @@
+<h1><%=params["mytitle"]%></h1>
+<table>
+	<%=render_collection(collection=params['message'], partial='welcome/_messages.html', as_='message') if len(params["message"]) > 0 else "vous n'avez pas de messages dans "+params["mytitle"]%>
+</table>

@@ -11,11 +11,14 @@ class RenderFigure():
         self.session={"name":"","notice":"","mysession":False}
         self.mytemplate="./mypage/index.html"
         self.path=program.get_path()
+
+
         self.title=program.get_title()
         self.headingone=program.get_title()
         self.redirect=""
         self.body=""
         self.params={"current_user_email":None,"current_user_name":None}
+        self.loc={"defined":self.defined,"db":Mydb(),"session": self.session,"render_collection": self.render_collection,"params":self.params,"getparams": self.getparams,"Fichier":Fichier,"date":date,"datetime":datetime}
     
     def set_redirect(self,x):
         self.redirect=x
@@ -36,7 +39,8 @@ class RenderFigure():
     def render_body(self):
         try:
           mystr=""
-          loc={"db":Mydb(),"session": self.session,"render_collection": self.render_collection,"params":self.params,"getparams": self.getparams,"Fichier":Fichier,"date":date,"datetime":datetime}
+          
+          loc={"defined":self.defined,"db":Mydb(),"session": self.session,"render_collection": self.render_collection,"params":self.params,"getparams": self.getparams,"Fichier":Fichier,"date":date,"datetime":datetime}
           for n in self.params:
               loc[n]=self.params[n]
           for j in self.body.split("<%"):
@@ -74,6 +78,8 @@ class RenderFigure():
           l="<div style='background:red;color:white;'>erreurici pour afficher <div class=\"codeerreur\" style=\"background:black;color:white;\">"+k[0]+"</div>"+traceback.format_exc()+"<br>"+str(e)+"</div>".replace("\r\n",'<br>')
 
           return l
+    def defined(self,var):
+        return var in vars() or var in globals()
     def render_collection(self, collection,partial,as_,mylocals={}):
         print("render collection")
         try:
@@ -83,7 +89,9 @@ class RenderFigure():
             k=[]
             paspremier=False
             ligne=0
-            loc={"db":Mydb(),"paspremier":False,as_: "","index":"",  "params": self.params,"render_collection":self.render_collection,"date":date,"datetime":datetime}
+            loc={"defined":self.defined,"db":Mydb(),"paspremier":False,as_: "","index":"",  "params": self.params,"render_collection":self.render_collection,"date":date,"datetime":datetime}
+            for y in mylocals:
+                loc[y]=mylocals[y]
 
             for x in collection:
                 loc["index"]=i
@@ -209,6 +217,9 @@ class RenderFigure():
           if self.mytemplate is not None:
               self.body= open(os.path.abspath(self.mytemplate),"r").read().format(debutmots=self.title, mot=self.headingone,plusdemot=self.body)
           self.body=self.render_body()
+          while "<%" in self.body and "%>" in self.body:
+            self.loc={"db":Mydb(),"session": self.session,"render_collection": self.render_collection,"params":self.params,"getparams": self.getparams,"Fichier":Fichier,"date":date,"datetime":datetime}
+            self.body=self.render_body()
           print("render figure bon")
           try:
             return self.body.encode("utf-8")

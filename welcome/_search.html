@@ -1,8 +1,10 @@
 <div class="card search">
 	<div class="card-body">
-		<h5 class="card-title"><%=s["title"]%></h5>
-		<p class="card-text"><%=s["mycontent"][(int(s["position1"])-100 if (s["position1"] - 100 > 0) else 0):(int(s["position1"])+100 if (s["position1"] + 100 < len(s["content"])) else (len(s["content"] - 1)))]%></p>
-			<a href="/voirpost/<%=s["id"]%>" class="btn btn-primary">lire le post</a>
+		<h5 class="card-title"><%=s["object"]%></h5>
+		<p class="card-text">from : <b><%=s["from"]%></b></p>
+		<p class="card-text">to : <b><%=s["myaddress"]%></b></p>
+		<p class="card-text"><%=s["mycontent"][(int(s["position1"])-100 if (int(s["position1"]) - 100 > 0) else 0):(int(s["position1"])+100 if (int(s["position1"]) + 100 < len(s["content"])) else (len(s["content"]) ))]%></p>
+			<a href="/voirmessage/<%=s["id"]%>" class="btn btn-primary">lire l'email</a>
 			      </div>
 
 </div>

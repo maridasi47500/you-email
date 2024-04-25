@@ -1,0 +1,14 @@
+<tr>
+	<td>
+		<%=message["from"]%>
+	</td>
+	<td>
+		<%=message["to"]%>
+	</td>
+	<td>
+		<%=message["object"]%>
+	</td>
+	<td>
+		<a href="/voirmessage/<%=message["id"]%>"><%=message["content"][0:100]%>...</a>
+	</td>
+</tr>

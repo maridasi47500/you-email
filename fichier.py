@@ -1,4 +1,5 @@
 from os.path import exists as existe
+
 class Fichier:
   def __init__(self,path,name):
     self.path=path

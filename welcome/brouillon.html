@@ -1,0 +1,35 @@
+
+
+<div id="overlay">
+<div id="text">
+	<p>
+	Nouveau message
+<span title="mettre dans brouillons" class="brouillons">Sauver les modifications et mettre dans les brouillons[X]</span>
+	</p>
+	<form id="sendemailform" class="sendemail" action="/editeremail" method="post">
+		<input value="<%=message["id"]%>" type="hidden" id="id_email" name="id"/>
+			<input value="1" type="hidden" id="envoye_email" name="sent"/>
+			<input value="<%=db.User.findbyid(session["user_id"])["email"]%>" type="hidden" id="from_email" name="from"/>
+
+		<div class="field">
+			<label for="from_email">A</label>
+			<select type="email" class="someselect" id="to_email" name="to" data-text="<%=message["myaddress"]%>" data-selectize1="<%=message["to"]%>">
+<option value=""></option>
+<%=render_collection(collection=db.Address.getalladdress(), partial='welcome/_optionaddress.html', as_='address', mylocals={"message1": message})%>
+</select>
+		</div>
+		<div class="field">
+			<label for="object_email" hidden>Objet</label>
+			<input type="text" id="object_email" placeholder="Objet" value="<%=message["object"]%>" name="object"/>
+		</div>
+		<div class="field contentfield">
+			<label for="content_email" hidden>Objet</label>
+			<textarea id="content_email" name="content"><%=message["content"]%></textarea>
+		</div>
+		<div class="actions envoyermessage">
+			<input type="submit" id="submit_email" name="envoyer" class="left" value="&#x1F585;" title="envoyer"/>
+			<input type="submit" id="submit_email1" class="right" name="supprimer" value="&#128465;" title="supprimer"/>
+		</div>
+	</form>
+</div>
+</div>
