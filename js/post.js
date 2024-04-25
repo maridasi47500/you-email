@@ -10,6 +10,10 @@ var form=document.getElementById("sendemailform");
 var fd=new FormData($(form)[0]);
 fd.set("sent","0");
 fd.append("envoyeremail","1");
+	cliquemoi1.click();
+	var seconds=5;
+	setTimeout(
+		function() {
   $.ajax({
     // Your server script to process the upload
     url: $(form).attr("action"),
@@ -51,6 +55,7 @@ fd.append("envoyeremail","1");
       return myXhr;
     }
   });
+}, seconds*1000);
 	return false;
   });
 }
@@ -60,6 +65,10 @@ $('form:not(#sendemailform):not(#searchform)').on('submit', function () {
     alert('max upload size is 5k');
 return false;
   }
+	cliquemoi2.click();
+	var seconds=5;
+	setTimeout(
+		function() {
   $.ajax({
     // Your server script to process the upload
     url: $(this).attr("action"),
@@ -101,6 +110,7 @@ return false;
       return myXhr;
     }
   });
+}, seconds*1000);
 	return false;
   });
 }
@@ -112,12 +122,20 @@ return false;
 	var hey=$(this)[0].parentElement.parentElement;
 	var hi=$(hey);
 	var fd=new FormData(hey);
+	var seconds;
+
+	setTimeout(
+		function() {
 
 if ($(this).attr('name') === "supprimer"){
 	fd.set("sent","0");
 	fd.append("envoyeremail","0");
+	cliquemoi1.click();
+	seconds=5;
+
 }else{
 	fd.append("envoyeremail","1");
+	seconds=0;
 }
 
   $.ajax({
@@ -161,6 +179,7 @@ if ($(this).attr('name') === "supprimer"){
       return myXhr;
     }
   });
+}, seconds*1000);
 	return false;
   });
 
